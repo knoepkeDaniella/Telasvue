@@ -1,17 +1,14 @@
 <template>
-    <div class="flex flex-col mx-auto items-center justify-center min-h-screen relative -top-15">
-
+    <div class="flex flex-col mx-auto items-center justify-center min-h-screen relative -top-10">
 
         <img src="../assets/logoipsum-298.svg" alt="logo" class="mb-12 mx-auto w-32 md:w-40 drop-shadow-lg" />
 
-
         <h1 class="text-5xl text-amber-600 font-bold mb-6 animate-fade-in">Bem-vindo!</h1>
-
 
         <p class="text-amber-600 mb-12 text-lg md:text-xl text-center animate-slide-up">Escolha uma opção abaixo:</p>
 
-
         <div class="flex flex-wrap justify-center gap-6">
+            
             <router-link to="/upon" class="card">
                 <div
                     class="bg-white border-t-4 border-amber-600 shadow-xl rounded-xl p-6 hover:shadow-2xl transition-transform transform hover:scale-105">
@@ -36,11 +33,29 @@
                     <p class="text-zinc-800">Conheça os serviços que oferecemos.</p>
                 </div>
             </router-link>
+
         </div>
 
+        <div class="flex justify-center gap-4 mt-8">
+
+            <router-link to="/login"
+                class=" mt-6 rounded-xl bg-amber-600 px-4 py-2.5 text-semibold cursor-pointer
+               hover:bg-amber-500 hover:scale-105 transition ease-in-out duration-200 w-fit text-center  flex items-center justify-center gap-2">
+                <UserIcon class="size-4 " />
+                Login
+            </router-link>
+
+        </div>
 
     </div>
+
 </template>
+
+<script setup>
+
+import { UserIcon } from "@heroicons/vue/24/solid";
+</script>
+
 
 <style scoped>
 .card {

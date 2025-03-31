@@ -1,5 +1,5 @@
 <template>
-    <div class=" mt-12 rounded-xl flex flex-col justify-center items-center x-auto p-50 text-white gap-8">
+    <div class=" mt-12 rounded-xl flex flex-col justify-center items-center x-auto p-45 text-white gap-12 relative">
         <div class="max-w-4xl w-full ">
 
             <h1 class="text-5xl font-bold text-amber-600 text-center relative -top-40 ">Contate-nos</h1>
@@ -42,30 +42,33 @@
 
                 </div>
 
-                <form class="bg-gray-800 p-6 rounded-lg shadow-md w-full">
+                <form @submit.prevent="enviarMensagem" class="  bg-gray-800 p-6 rounded-lg shadow-md w-full">
                     <h2 class="text-xl font-semibold text-amber-500 mb-4">Envie uma mensagem</h2>
 
                     <div class="mb-3">
-                        <label class="block text-sm font-medium mb-2">Nome</label>
-                        <input type="text" class="w-full p-2 bg-gray-700 rounded-md focus:outline-none focus:ring-2
-                             focus:ring-amber-500 placeholder-gray-400" placeholder="Digite seu nome:">
+
+                        <label class="block text-sm  mb-2">Nome</label>
+                        <input v-model="nome" type="text" class=" border w-full px-2 py-1 bg-gray-700 rounded-md outline-none 
+                             focus:border-amber-500 placeholder-gray-400/70" placeholder="Digite seu nome:">
                     </div>
 
                     <div class="mb-3">
-                        <label class="block text-sm font-medium mb-2">E-mail</label>
-                        <input type="email" v-model="email" class="w-full p-4 bg-gray-700 rounded-md focus:outline-none focus:ring-2
-                             focus:ring-amber-500 placeholder-gray-400" placeholder="Digite seu e-mail:">
+
+                        <label class="block text-sm  mb-2">E-mail</label>
+                        <input type="email" v-model="email" class=" border w-full px-2 py-1 bg-gray-700 rounded-md outline-none 
+                             focus:border-amber-500 placeholder-gray-400/70" placeholder="Digite seu e-mail:">
                     </div>
 
                     <div class="mb-3">
-                        <label class="block text-sm font-medium mb-2">Mensagem</label>
-                        <textarea v-model="message" rows="4" class="w-full p-2 bg-gray-700 rounded-md focus:outline-none focus:ring-2
-                             focus:ring-amber-500 placeholder-gray-400"
+
+                        <label class="block text-sm mb-2">Mensagem</label>
+                        <textarea v-model="mensagem" rows="4" class=" border w-full px-2 py-1 bg-gray-700 rounded-md outline-none 
+                             focus:border-amber-500 placeholder-gray-400/70"
                             placeholder="Digite sua mensagem..."></textarea>
                     </div>
 
                     <button type="submit"
-                        class="w-full py-2 bg-amber-500 hover:bg-amber-400 transition rounded-md text-lg font-semibold">
+                        class="w-full py-3 px-6 bg-amber-500 hover:bg-amber-400 transition rounded-md text-lg font-semibold">
                         Enviar
                     </button>
                 </form>
@@ -73,21 +76,73 @@
             </div>
 
         </div>
-        <div class="text-center mt-12">
-            <router-link to="/" class="text-lg py-3 px-6 rounded-lg bg-amber-600 text-white
-                 hover:bg-amber-500 transition-all inline-block">
-                Voltar
+
+        <div class="flex justify-center gap-4 mt-8">
+
+            <router-link to="/"
+            class=" mt-6 rounded-xl bg-amber-600 px-4 py-2.5 text-semibold cursor-pointer
+            hover:bg-amber-500 hover:scale-105 transition ease-in-out duration-200 w-fit text-center  flex items-center justify-center gap-2">
+                <HomeIcon class="size-4 " />
+                Home
             </router-link>
+            <router-link to="/recept"
+            class=" mt-6 rounded-xl bg-amber-600 px-4 py-2.5 text-semibold cursor-pointer
+            hover:bg-amber-500 hover:scale-105 transition ease-in-out duration-200 w-fit text-center  flex items-center justify-center gap-2">
+            <ChatBubbleLeftEllipsisIcon class="size-4 " />
+                Mensagens
+            </router-link>
+
         </div>
+
     </div>
+
 </template>
 
 <script setup>
-import { PhoneIcon, EnvelopeIcon, MapPinIcon } from "@heroicons/vue/24/solid";
+
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { PhoneIcon} from "@heroicons/vue/24/solid";
+import { EnvelopeIcon } from "@heroicons/vue/24/solid";
+import { MapPinIcon } from "@heroicons/vue/24/solid";
+import { HomeIcon } from "@heroicons/vue/24/solid";
+import { ChatBubbleLeftEllipsisIcon } from "@heroicons/vue/24/solid";
+
+const nome = ref('');
+const email = ref('');
+const mensagem = ref('');
+const router = useRouter();
+
+
+const enviarMensagem = () => {
+    if (!nome.value || !email.value || !mensagem.value) {
+        alert("Por favor, preencha todos os campos!");
+        return;
+    }
+
+    const novaMensagem = {
+        id: Date.now(),
+        nome: nome.value,
+        email: email.value,
+        mensagem: mensagem.value,
+    };
+
+
+    const mensagens = JSON.parse(localStorage.getItem('mensagens')) || [];
+    mensagens.push(novaMensagem);
+    localStorage.setItem('mensagens', JSON.stringify(mensagens));
+
+    nome.value = '';
+    email.value = '';
+    mensagem.value = '';
+
+    router.push('/recept');
+};
+
 </script>
 
-
 <style scoped>
+
 @keyframes fade-in {
     from {
         opacity: 0;
@@ -117,4 +172,5 @@ import { PhoneIcon, EnvelopeIcon, MapPinIcon } from "@heroicons/vue/24/solid";
 .animate-slide-up {
     animation: slide-up 0.8s ease-out;
 }
+
 </style>

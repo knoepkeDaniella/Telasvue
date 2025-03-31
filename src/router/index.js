@@ -3,6 +3,10 @@ import HomeView from '../views/HomeView.vue';
 import ContactView from '../views/ContactView.vue';
 import ServicesView from '../views/ServicesView.vue';
 import UponView from '../views/UponView.vue';
+import ReceptView from '../views/ReceptView.vue';
+import LoginView from '../views/LoginView.vue';
+import FormView from '../views/FormView.vue';
+import MainView from '../views/MainView.vue';
 
 const routes = [
   {
@@ -27,6 +31,26 @@ const routes = [
     path: '/upon',
     name: 'Upon',
     component: UponView,
+  },
+  {
+    path: '/recept',
+    name: 'Recept',
+    component: ReceptView,
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: LoginView,
+  },
+  {
+    path: '/form',
+    name: 'Form',
+    component: FormView,
+  },
+  {
+    path: '/main',
+    name: 'Main',
+    component: MainView,
   },
 ];
 
